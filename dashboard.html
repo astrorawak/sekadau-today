@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sekadau Today — Dashboard Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gd:#1a4731;--gm:#2d6e4e;--gold:#f0a500;--org:#e05c2a;
+  --bg:#f0f2f0;--sf:#fff;--bgd:#111a14;--tx:#1c1c1c;--mu:#6b7280;--bd:#e5e7eb;
+  --danger:#dc2626;--success:#16a34a;--warning:#d97706;
+  --fu:"DM Sans",sans-serif;--fh:"Playfair Display",serif;--r:8px;
+  --sidebar-w:240px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{font-family:var(--fu);background:var(--bg);color:var(--tx);min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* ── LOGIN ── */
+#lp{position:fixed;inset:0;background:var(--bgd);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px}
+#lp.h{display:none}
+.lb{background:#fff;border-radius:12px;padding:36px 32px;width:100%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.ll{text-align:center;margin-bottom:24px}
+.ll span{font-family:var(--fh);font-size:24px;font-weight:700;color:var(--gd)}
+.ll em{color:var(--gold);font-style:normal}
+.ll p{font-size:11px;color:var(--mu);margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+.fg2{margin-bottom:14px}
+.fg2 label{display:block;font-size:11px;font-weight:600;color:var(--mu);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em}
+.fg2 input{width:100%;border:1.5px solid var(--bd);border-radius:6px;padding:10px 12px;font-family:var(--fu);font-size:14px;outline:none;transition:border-color .2s}
+.fg2 input:focus{border-color:var(--gm)}
+.btn-l{width:100%;background:var(--gd);color:#fff;border:none;border-radius:6px;padding:12px;font-family:var(--fu);font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;transition:background .2s}
+.btn-l:hover{background:var(--gm)}
+.le{background:#fee2e2;color:var(--danger);border-radius:6px;padding:10px 12px;font-size:13px;margin-bottom:12px;display:none}
+.le.s{display:block}
+
+/* ── LAYOUT ── */
+.layout{display:flex;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sd{
+  width:var(--sidebar-w);background:var(--bgd);
+  display:flex;flex-direction:column;flex-shrink:0;
+  position:fixed;top:0;left:0;bottom:0;z-index:200;
+  transform:translateX(0);transition:transform .3s ease;
+  overflow-y:auto;
+}
+.sd.collapsed{transform:translateX(-100%)}
+.sl{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0}
+.sln{font-family:var(--fh);font-size:19px;font-weight:700;color:#fff;line-height:1.2}
+.sln em{color:var(--gold);font-style:normal}
+.sls{font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.snv{flex:1;padding:10px 0}
+.nsc{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.25);padding:14px 18px 5px}
+.ni2{display:flex;align-items:center;gap:10px;padding:9px 18px;color:rgba(255,255,255,.65);font-size:13px;font-weight:500;cursor:pointer;border-left:3px solid transparent;transition:all .2s}
+.ni2:hover{color:#fff;background:rgba(255,255,255,.06)}
+.ni2.active{color:var(--gold);background:rgba(240,165,0,.08);border-left-color:var(--gold)}
+.nb{margin-left:auto;background:var(--org);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;min-width:20px;text-align:center}
+.sf2{padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);flex-shrink:0}
+.su{display:flex;align-items:center;gap:10px;cursor:pointer}
+.sa{width:32px;height:32px;background:var(--gm);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.sun{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sur{font-size:10px;color:rgba(255,255,255,.4)}
+
+/* ── MAIN WRAP ── */
+.mw{
+  flex:1;display:flex;flex-direction:column;
+  margin-left:var(--sidebar-w);
+  min-width:0;transition:margin-left .3s ease;
+}
+.mw.full{margin-left:0}
+
+/* ── TOPBAR ── */
+.tb{
+  background:#fff;border-bottom:1px solid var(--bd);
+  padding:0 20px;height:54px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;gap:12px;
+}
+.tb-left{display:flex;align-items:center;gap:10px;min-width:0}
+.tt{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbg{background:none;border:none;font-size:20px;cursor:pointer;padding:4px;color:var(--tx);flex-shrink:0;line-height:1}
+.btn-p{background:var(--gd);color:#fff;border:none;border-radius:6px;padding:7px 14px;font-family:var(--fu);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0}
+.btn-p:hover{background:var(--gm)}
+.btn-p.sm{padding:6px 10px;font-size:12px}
+
+/* ── OVERLAY (mobile) ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150}
+.overlay.show{display:block}
+
+/* ── PAGE CONTENT ── */
+.pc{padding:20px;flex:1;overflow-x:hidden}
+.pg{display:none}.pg.active{display:block}
+
+/* ── STATS ── */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.sc{background:#fff;border-radius:var(--r);padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.07);position:relative;overflow:hidden}
+.sc::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.sc.g::before{background:var(--gm)}.sc.o::before{background:var(--gold)}.sc.r::before{background:var(--org)}.sc.b::before{background:#3b82f6}
+.scl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);margin-bottom:6px}
+.scv{font-size:26px;font-weight:700;line-height:1;margin-bottom:4px}
+.scc{font-size:11px;color:var(--success)}
+.sci{position:absolute;top:14px;right:14px;font-size:26px;opacity:.12}
+
+/* ── CARD ── */
+.cd{background:#fff;border-radius:var(--r);box-shadow:0 1px 4px rgba(0,0,0,.07);overflow:hidden}
+.ch{padding:14px 18px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.cht{font-size:14px;font-weight:700}
+.cha{font-size:12px;color:var(--gm);cursor:pointer;white-space:nowrap}
+.cha:hover{text-decoration:underline}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tc{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+.tc thead th{background:var(--bg);padding:9px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);border-bottom:1px solid var(--bd);white-space:nowrap}
+.tc tbody tr{border-bottom:1px solid var(--bd);transition:background .15s}
+.tc tbody tr:last-child{border-bottom:none}.tc tbody tr:hover{background:#f9fafb}
+.tc tbody td{padding:10px 14px;vertical-align:middle}
+.td-title{max-width:220px}
+.td-title .ttl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;font-size:13px}
+.td-title small{color:var(--mu);font-size:10px;display:block;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.tp{background:#dcfce7;color:#15803d}.td2{background:#fef9c3;color:#a16207}.ta{background:#f1f5f9;color:#64748b}
+.bi{background:none;border:none;font-size:14px;cursor:pointer;padding:3px 5px;border-radius:4px;color:var(--mu);transition:background .15s}
+.bi:hover{background:var(--bg)}.bi.d:hover{color:var(--danger)}
+
+/* ── TOOLBAR ── */
+.tl{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.si{flex:1;min-width:160px;border:1.5px solid var(--bd);border-radius:6px;padding:8px 10px;font-family:var(--fu);font-size:13px;outline:none;transition:border-color .2s}
+.si:focus{border-color:var(--gm)}
+.fs2{border:1.5px solid var(--bd);border-radius:6px;padding:8px 10px;font-family:var(--fu);font-size:13px;outline:none;background:#fff;cursor:pointer;max-width:140px}
+
+/* ── PAGINATION ── */
+.pg2{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--bd);font-size:12px;color:var(--mu);flex-wrap:wrap;gap:8px}
+.pb{display:flex;gap:4px;flex-wrap:wrap}
+.pbn{padding:4px 9px;border:1px solid var(--bd);border-radius:4px;cursor:pointer;font-size:12px;background:#fff;transition:all .15s}
+.pbn:hover,.pbn.active{background:var(--gd);color:#fff;border-color:var(--gd)}
+
+/* ── MODAL ── */
+.mo{
+  position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.mo.active{opacity:1;pointer-events:all}
+/* Desktop: center modal */
+@media(min-width:641px){
+  .mo{align-items:flex-start;padding:40px 16px;overflow-y:auto}
+  .md{border-radius:12px;transform:translateY(-20px);transition:transform .25s;max-height:none}
+  .mo.active .md{transform:translateY(0)}
+}
+/* Mobile: bottom sheet */
+@media(max-width:640px){
+  .md{
+    border-radius:16px 16px 0 0;
+    transform:translateY(100%);transition:transform .3s ease;
+    max-height:92vh;overflow-y:auto;
+  }
+  .mo.active .md{transform:translateY(0)}
+}
+.md{
+  background:#fff;width:100%;max-width:660px;
+  box-shadow:0 -4px 30px rgba(0,0,0,.2);
+}
+.mh{
+  padding:16px 20px 14px;border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;background:#fff;z-index:10;
+}
+.mht{font-size:15px;font-weight:700}
+.mc{background:none;border:none;font-size:22px;cursor:pointer;color:var(--mu);line-height:1;padding:2px 6px;border-radius:4px}
+.mc:hover{color:var(--danger);background:#fee2e2}
+.mb{padding:18px 20px}
+.mf{
+  padding:14px 20px;border-top:1px solid var(--bd);
+  display:flex;justify-content:flex-end;gap:10px;
+  position:sticky;bottom:0;background:#fff;
+}
+.btn-s2{background:#fff;color:var(--tx);border:1.5px solid var(--bd);border-radius:6px;padding:8px 14px;font-family:var(--fu);font-size:13px;cursor:pointer}
+
+/* ── FORM FIELDS ── */
+.fld{margin-bottom:16px}
+.fll{display:block;font-size:11px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.fli,.fls,.flt{width:100%;border:1.5px solid var(--bd);border-radius:6px;padding:10px 12px;font-family:var(--fu);font-size:14px;color:var(--tx);outline:none;transition:border-color .2s;background:#fff}
+.fli:focus,.fls:focus,.flt:focus{border-color:var(--gm)}
+.flt{resize:vertical;min-height:70px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fck{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;padding:4px 0}
+.fck input{width:16px;height:16px;cursor:pointer;accent-color:var(--gm)}
+.fcks{display:flex;gap:16px;flex-wrap:wrap}
+
+/* ── EDITOR ── */
+.etb{display:flex;gap:4px;flex-wrap:wrap;border:1.5px solid var(--bd);border-bottom:none;border-radius:6px 6px 0 0;padding:6px 8px;background:var(--bg)}
+.etb button{background:none;border:none;padding:5px 9px;border-radius:4px;cursor:pointer;font-size:13px;font-weight:700;color:var(--mu);transition:all .15s}
+.etb button:hover{background:#fff;color:var(--tx)}
+.edt{min-height:140px;border:1.5px solid var(--bd);border-radius:0 0 6px 6px;padding:12px;font-family:var(--fu);font-size:14px;line-height:1.6;outline:none;transition:border-color .2s;word-break:break-word}
+.edt:focus{border-color:var(--gm)}
+.edt:empty::before{content:attr(placeholder);color:var(--mu)}
+
+/* ── UPLOAD FOTO ── */
+.upload-area{
+  border:2px dashed var(--bd);border-radius:8px;padding:20px;
+  text-align:center;cursor:pointer;transition:all .2s;background:#fafafa;
+  position:relative;overflow:hidden;
+}
+.upload-area:hover{border-color:var(--gm);background:#f0fdf4}
+.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-area .ua-icon{font-size:28px;margin-bottom:6px}
+.upload-area .ua-text{font-size:13px;color:var(--mu)}
+.upload-area .ua-sub{font-size:11px;color:var(--mu);margin-top:3px}
+.preview-wrap{position:relative;margin-top:10px}
+.preview-img{width:100%;max-height:160px;object-fit:cover;border-radius:6px;display:block}
+.preview-del{position:absolute;top:6px;right:6px;background:rgba(220,38,38,.9);color:#fff;border:none;border-radius:50%;width:26px;height:26px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.upload-progress{height:4px;background:#e5e7eb;border-radius:2px;margin-top:8px;overflow:hidden;display:none}
+.upload-progress.show{display:block}
+.up-bar{height:100%;background:var(--gm);border-radius:2px;transition:width .3s;width:0%}
+.url-or{display:flex;align-items:center;gap:8px;margin:10px 0;color:var(--mu);font-size:12px}
+.url-or::before,.url-or::after{content:"";flex:1;height:1px;background:var(--bd)}
+
+/* ── CATEGORY GRID ── */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:18px}
+.cc{border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px;border:1px solid var(--bd);transition:box-shadow .2s}
+.cc:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.ccn{font-size:14px;font-weight:700}.ccc{font-size:11px;color:var(--mu)}.cca{display:flex;gap:6px;margin-top:4px}
+
+/* ── QUICK ACTIONS ── */
+.qs{display:flex;flex-direction:column;gap:8px;padding:14px 18px}
+.qb{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;transition:all .2s;border:1px solid transparent}
+.qb:hover{transform:translateX(3px)}
+.qg{background:#f0fdf4;color:var(--gd);border-color:#bbf7d0}
+.qo{background:#fffbeb;color:#92400e;border-color:#fde68a}
+.qr{background:#fff7ed;color:#9a3412;border-color:#fed7aa}
+.qb2{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+
+/* ── STATUS PANEL ── */
+.sti{display:flex;flex-direction:column;gap:10px;font-size:13px;padding:14px 18px}
+.sr{display:flex;justify-content:space-between;align-items:center}
+
+/* ── SETTINGS ── */
+.sw{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ── TOAST ── */
+.tst{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--gd);color:#fff;padding:11px 20px;
+  border-radius:8px;font-size:13px;font-weight:500;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);
+  opacity:0;transition:all .3s;z-index:9999;
+  white-space:nowrap;max-width:90vw;text-align:center;
+}
+.tst.s{transform:translateX(-50%) translateY(0);opacity:1}
+.tst.er{background:var(--danger)}
+
+/* ── CONFIRM MODAL ── */
+.cmo{max-width:380px!important}
+.cmi{text-align:center;padding:28px 20px}
+.cmicon{font-size:38px;margin-bottom:10px}
+.cmm{font-size:15px;line-height:1.5;font-weight:600}.cms{font-size:13px;color:var(--mu);margin-top:5px}
+
+/* ── INFO BOX ── */
+.cb{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.6;margin-bottom:18px}
+.cb strong{color:#92400e}.cb code{background:#fef3c7;padding:2px 5px;border-radius:3px;font-size:11px;font-family:monospace;word-break:break-all}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .sg{grid-template-columns:repeat(2,1fr)}
+  .db-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:640px){
+  :root{--sidebar-w:0px}
+  .sd{width:280px;transform:translateX(-100%)}
+  .sd.open{transform:translateX(0)}
+  .mw{margin-left:0!important}
+  .sg{grid-template-columns:repeat(2,1fr);gap:10px}
+  .sc{padding:14px}
+  .scv{font-size:22px}
+  .fr{grid-template-columns:1fr}
+  .sw{grid-template-columns:1fr}
+  .pc{padding:14px}
+  .tl{gap:6px}
+  .si{min-width:120px}
+  .fs2{max-width:none;flex:1}
+  .tc{min-width:500px}
+  .tb{padding:0 14px;height:50px}
+}
+@media(max-width:400px){
+  .sg{grid-template-columns:1fr 1fr}
+  .lb{padding:28px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="lp">
+  <div class="lb">
+    <div class="ll"><span>Sekadau <em>Today</em></span><p>Dashboard Admin</p></div>
+    <div class="le" id="le">Email atau password salah.</div>
+    <div class="fg2"><label>Email</label><input type="email" id="em" placeholder="admin@sekadautoday.com" autocomplete="email"/></div>
+    <div class="fg2"><label>Password</label><input type="password" id="pw" placeholder="••••••••" autocomplete="current-password"/></div>
+    <button class="btn-l" onclick="doLogin()">Masuk ke Dashboard</button>
+  </div>
+</div>
+
+<!-- OVERLAY mobile -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- LAYOUT -->
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sd" id="sd">
+    <div class="sl">
+      <div class="sln">Sekadau <em>Today</em></div>
+      <div class="sls">Admin Panel</div>
+    </div>
+    <nav class="snv">
+      <div class="nsc">Utama</div>
+      <div class="ni2 active" onclick="goPage('db',this)">📊 Dashboard</div>
+      <div class="nsc">Konten</div>
+      <div class="ni2" onclick="goPage('ar',this)">📰 Artikel <span class="nb" id="draftBadge">0</span></div>
+      <div class="ni2" onclick="goPage('ca',this)">🏷️ Kategori</div>
+      <div class="nsc">Pengaturan</div>
+      <div class="ni2" onclick="goPage('st',this)">⚙️ Pengaturan Website</div>
+      <div class="ni2" onclick="goPage('su',this)">🔧 Info Koneksi</div>
+    </nav>
+    <div class="sf2">
+      <div class="su">
+        <div class="sa">A</div>
+        <div style="flex:1;min-width:0">
+          <div class="sun">Super Admin</div>
+          <div class="sur">admin@sekadautoday.com</div>
+        </div>
+        <span style="cursor:pointer;color:rgba(255,255,255,.4);font-size:16px" onclick="doLogout()" title="Keluar">🚪</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN WRAP -->
+  <div class="mw" id="mw">
+    <!-- TOPBAR -->
+    <div class="tb">
+      <div class="tb-left">
+        <button class="hbg" onclick="toggleSidebar()" title="Menu">☰</button>
+        <div class="tt" id="ptitle">Dashboard</div>
+      </div>
+      <button class="btn-p sm" onclick="openArtModal()">+ Artikel</button>
+    </div>
+
+    <!-- PAGES -->
+    <div class="pc">
+
+      <!-- DASHBOARD -->
+      <div class="pg active" id="pg-db">
+        <div class="sg">
+          <div class="sc g"><div class="scl">Total Artikel</div><div class="scv" id="st-tot">—</div><div class="scc">Dari Supabase</div><div class="sci">📰</div></div>
+          <div class="sc o"><div class="scl">Published</div><div class="scv" id="st-pub">—</div><div class="scc">Tayang</div><div class="sci">✅</div></div>
+          <div class="sc r"><div class="scl">Draft</div><div class="scv" id="st-dr">—</div><div class="scc">Belum tayang</div><div class="sci">✏️</div></div>
+          <div class="sc b"><div class="scl">Total Views</div><div class="scv" id="st-vw">—</div><div class="scc">Akumulasi</div><div class="sci">👁️</div></div>
+        </div>
+        <div class="db-grid" style="display:grid;grid-template-columns:2fr 1fr;gap:16px">
+          <div class="cd">
+            <div class="ch"><span class="cht">Artikel Terbaru</span><span class="cha" onclick="goPage('ar',null)">Lihat Semua →</span></div>
+            <div class="table-wrap">
+              <table class="tc"><thead><tr><th>Judul</th><th>Kategori</th><th>Status</th><th>Tgl</th></tr></thead>
+              <tbody id="dbTb"><tr><td colspan="4" style="text-align:center;padding:20px;color:var(--mu)">Memuat...</td></tr></tbody></table>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="cd"><div class="ch"><span class="cht">Aksi Cepat</span></div>
+              <div class="qs">
+                <div class="qb qg" onclick="openArtModal()">✏️ Tulis Artikel Baru</div>
+                <div class="qb qo" onclick="goPage('ca',null)">🏷️ Kelola Kategori</div>
+                <div class="qb qr" onclick="checkSb()">🔌 Cek Koneksi</div>
+                <div class="qb qb2" onclick="window.open('https://supabase.com/dashboard/project/skrffjrxudrzskiqfoau','_blank')">🗄️ Buka Supabase</div>
+              </div>
+            </div>
+            <div class="cd"><div class="ch"><span class="cht">Status</span></div>
+              <div class="sti">
+                <div class="sr"><span>Supabase</span><span id="s1" style="color:var(--mu)">⏳</span></div>
+                <div class="sr"><span>Artikel</span><span id="s2" style="color:var(--mu)">⏳</span></div>
+                <div class="sr"><span>Kategori</span><span id="s3" style="color:var(--mu)">⏳</span></div>
+                <button class="btn-p sm" onclick="checkSb()" style="margin-top:4px;width:100%">🔄 Cek Status</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTIKEL -->
+      <div class="pg" id="pg-ar">
+        <div class="tl">
+          <input class="si" type="text" placeholder="🔍 Cari artikel..." id="arSrch" oninput="filterAr()"/>
+          <select class="fs2" id="arSt" onchange="filterAr()">
+            <option value="">Semua Status</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+            <option value="archived">Archived</option>
+          </select>
+          <select class="fs2" id="arCat" onchange="filterAr()"><option value="">Semua Kategori</option></select>
+          <button class="btn-p sm" onclick="openArtModal()">+ Baru</button>
+        </div>
+        <div class="cd">
+          <div class="table-wrap">
+            <table class="tc">
+              <thead><tr><th>Judul</th><th>Kategori</th><th>Status</th><th>Tgl</th><th>Views</th><th></th></tr></thead>
+              <tbody id="arTb"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--mu)">Memuat...</td></tr></tbody>
+            </table>
+          </div>
+          <div class="pg2"><span id="arPi">—</span><div class="pb" id="arPb"></div></div>
+        </div>
+      </div>
+
+      <!-- KATEGORI -->
+      <div class="pg" id="pg-ca">
+        <div class="tl"><button class="btn-p sm" onclick="openCatModal()">+ Tambah Kategori</button></div>
+        <div class="cd"><div class="cg" id="caGr"><div style="text-align:center;padding:20px;color:var(--mu);grid-column:1/-1">Memuat...</div></div></div>
+      </div>
+
+      <!-- PENGATURAN -->
+      <div class="pg" id="pg-st">
+        <div class="cd">
+          <div class="ch"><span class="cht">⚙️ Pengaturan Website</span><button class="btn-p sm" onclick="saveSettings()">💾 Simpan</button></div>
+          <div style="padding:18px"><div class="sw" id="stFm"><div style="text-align:center;padding:20px;color:var(--mu);grid-column:1/-1">Memuat...</div></div></div>
+        </div>
+      </div>
+
+      <!-- INFO KONEKSI -->
+      <div class="pg" id="pg-su">
+        <div class="cd"><div class="ch"><span class="cht">🔧 Info Koneksi Supabase</span></div>
+          <div style="padding:20px">
+            <div class="cb"><strong>✅ Terhubung ke Supabase</strong><br>Project: <code>sekadau-today-cms</code><br>URL: <code>https://skrffjrxudrzskiqfoau.supabase.co</code><br>Region: ap-southeast-1 · Status: ACTIVE_HEALTHY</div>
+            <table class="tc" style="min-width:auto">
+              <thead><tr><th>Item</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td>Project URL</td><td><code style="font-size:11px">https://skrffjrxudrzskiqfoau.supabase.co</code></td></tr>
+                <tr><td>Admin Login</td><td><code style="font-size:11px">admin@sekadautoday.com</code></td></tr>
+                <tr><td>Website</td><td><a href="https://sekadau-today-cms.netlify.app" target="_blank" style="color:var(--gm)">sekadau-today-cms.netlify.app ↗</a></td></tr>
+              </tbody>
+            </table>
+            <button class="btn-p sm" onclick="checkSb()" style="margin-top:14px">🔌 Test Koneksi</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pc -->
+  </div><!-- /mw -->
+</div><!-- /layout -->
+
+<!-- MODAL ARTIKEL -->
+<div class="mo" id="moAr">
+  <div class="md">
+    <div class="mh">
+      <div class="mht" id="moArT">✏️ Artikel Baru</div>
+      <button class="mc" onclick="closeModal('moAr')">✕</button>
+    </div>
+    <div class="mb">
+      <input type="hidden" id="arId"/>
+      <div class="fld">
+        <label class="fll">Judul Artikel *</label>
+        <input class="fli" type="text" id="arTit" placeholder="Masukkan judul berita..." oninput="genSlug()" autocomplete="off"/>
+      </div>
+      <div class="fld">
+        <label class="fll">Slug URL</label>
+        <input class="fli" type="text" id="arSlg" placeholder="judul-artikel-otomatis"/>
+      </div>
+      <div class="fr">
+        <div class="fld">
+          <label class="fll">Kategori</label>
+          <select class="fls" id="arCat2"></select>
+        </div>
+        <div class="fld">
+          <label class="fll">Penulis</label>
+          <input class="fli" type="text" id="arAut" value="Tim Redaksi"/>
+        </div>
+      </div>
+      <div class="fld">
+        <label class="fll">Ringkasan / Excerpt</label>
+        <textarea class="flt" id="arExc" placeholder="Ringkasan singkat artikel..."></textarea>
+      </div>
+      <div class="fld">
+        <label class="fll">Isi Artikel</label>
+        <div class="etb">
+          <button onclick="fmt('bold')" type="button"><b>B</b></button>
+          <button onclick="fmt('italic')" type="button"><i>I</i></button>
+          <button onclick="fmt('underline')" type="button"><u>U</u></button>
+          <button onclick="document.execCommand('formatBlock',false,'h2')" type="button">H2</button>
+          <button onclick="document.execCommand('formatBlock',false,'p')" type="button">¶</button>
+          <button onclick="insertLink()" type="button">🔗</button>
+        </div>
+        <div class="edt" id="arCnt" contenteditable="true" placeholder="Tulis isi artikel di sini..."></div>
+      </div>
+
+      <!-- UPLOAD FOTO — BARU -->
+      <div class="fld">
+        <label class="fll">Foto Cover</label>
+        <div class="upload-area" id="uploadArea" onclick="document.getElementById('photoInput').click()">
+          <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)" onclick="event.stopPropagation()"/>
+          <div id="uploadPlaceholder">
+            <div class="ua-icon">📷</div>
+            <div class="ua-text"><strong>Ketuk untuk upload foto</strong></div>
+            <div class="ua-sub">JPG, PNG, WebP — maks 5MB</div>
+          </div>
+          <div class="upload-progress" id="uploadProgress"><div class="up-bar" id="upBar"></div></div>
+        </div>
+        <div id="previewWrap" class="preview-wrap" style="display:none">
+          <img id="previewImg" class="preview-img" src="" alt="preview"/>
+          <button class="preview-del" onclick="clearPhoto()" type="button" title="Hapus foto">✕</button>
+        </div>
+        <div class="url-or">atau masukkan URL langsung</div>
+        <input class="fli" type="text" id="arCov" placeholder="https://contoh.com/foto.jpg" oninput="onUrlInput()"/>
+      </div>
+
+      <div class="fr">
+        <div class="fld">
+          <label class="fll">Status</label>
+          <select class="fls" id="arSt2">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label class="fll">Opsi Tambahan</label>
+          <div class="fcks" style="margin-top:8px">
+            <label class="fck"><input type="checkbox" id="arFt"/> ⭐ Unggulan</label>
+            <label class="fck"><input type="checkbox" id="arBk"/> 🔴 Breaking</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mf">
+      <button class="btn-s2" onclick="closeModal('moAr')" type="button">Batal</button>
+      <button class="btn-p" onclick="saveArt()" type="button">💾 Simpan Artikel</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL KATEGORI -->
+<div class="mo" id="moCat">
+  <div class="md" style="max-width:400px">
+    <div class="mh">
+      <div class="mht" id="moCatT">🏷️ Tambah Kategori</div>
+      <button class="mc" onclick="closeModal('moCat')">✕</button>
+    </div>
+    <div class="mb">
+      <input type="hidden" id="catId"/>
+      <div class="fld"><label class="fll">Nama Kategori</label><input class="fli" type="text" id="catNm" placeholder="Contoh: Daerah" oninput="genCatSlug()"/></div>
+      <div class="fld"><label class="fll">Slug</label><input class="fli" type="text" id="catSl" placeholder="daerah"/></div>
+      <div class="fld"><label class="fll">Warna Label</label><input class="fli" type="color" id="catCl" value="#2d6e4e" style="height:42px;cursor:pointer"/></div>
+    </div>
+    <div class="mf">
+      <button class="btn-s2" onclick="closeModal('moCat')" type="button">Batal</button>
+      <button class="btn-p" onclick="saveCat()" type="button">💾 Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL HAPUS -->
+<div class="mo" id="moDel">
+  <div class="md cmo">
+    <div class="cmi">
+      <div class="cmicon">🗑️</div>
+      <div class="cmm">Yakin ingin menghapus?</div>
+      <div class="cms" id="delSub">Data akan dihapus permanen.</div>
+    </div>
+    <div class="mf">
+      <button class="btn-s2" onclick="closeModal('moDel')" type="button">Batal</button>
+      <button class="btn-p" style="background:var(--danger)" id="delBtn" type="button">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+<div class="tst" id="tst"></div>
+
+<script>
+// ── CONFIG ──
+const SB="https://skrffjrxudrzskiqfoau.supabase.co", SK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrcmZmanJ4dWRyenNraXFmb2F1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NTk5MTMsImV4cCI6MjA5NjAzNTkxM30.j7NfVL77f7qEq58fENeljOulj65ieX5npwO8htfnt6g";
+const AE="admin@sekadautoday.com", AP="Admin@2025";
+
+// ── STATE ──
+let arts=[], cats=[], settings={}, arPg=1; const PP=15;
+
+// ── SUPABASE HELPERS ──
+async function sbF(t,q=""){
+  try{const r=await fetch(SB+"/rest/v1/"+t+q,{headers:{"apikey":SK,"Authorization":"Bearer "+SK}});return r.ok?await r.json():[]}catch{return[]}
+}
+async function sbPo(t,b){
+  try{const r=await fetch(SB+"/rest/v1/"+t,{method:"POST",headers:{"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json","Prefer":"return=representation"},body:JSON.stringify(b)});return{ok:r.ok,data:r.ok?await r.json():null,err:r.ok?null:await r.text()}}catch(e){return{ok:false,err:e.message}}
+}
+async function sbPa(t,id,b){
+  try{const r=await fetch(SB+"/rest/v1/"+t+"?id=eq."+id,{method:"PATCH",headers:{"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":"application/json","Prefer":"return=representation"},body:JSON.stringify(b)});return{ok:r.ok,data:r.ok?await r.json():null,err:r.ok?null:await r.text()}}catch(e){return{ok:false,err:e.message}}
+}
+async function sbDel(t,id){
+  try{const r=await fetch(SB+"/rest/v1/"+t+"?id=eq."+id,{method:"DELETE",headers:{"apikey":SK,"Authorization":"Bearer "+SK}});return{ok:r.ok}}catch{return{ok:false}}
+}
+
+// ── AUTH ──
+function doLogin(){
+  const em=document.getElementById("em").value.trim(), pw=document.getElementById("pw").value;
+  if(em===AE&&pw===AP){document.getElementById("lp").classList.add("h");initDB();toast("✅ Selamat datang kembali!");}
+  else{document.getElementById("le").classList.add("s");document.getElementById("pw").value="";}
+}
+document.getElementById("pw").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin()});
+document.getElementById("em").addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("pw").focus()});
+function doLogout(){document.getElementById("lp").classList.remove("h");closeSidebar();}
+
+// ── SIDEBAR ──
+function toggleSidebar(){
+  const sd=document.getElementById("sd");
+  const isMobile=window.innerWidth<=640;
+  if(isMobile){
+    sd.classList.toggle("open");
+    document.getElementById("overlay").classList.toggle("show",sd.classList.contains("open"));
+  } else {
+    sd.classList.toggle("collapsed");
+    document.getElementById("mw").classList.toggle("full",sd.classList.contains("collapsed"));
+  }
+}
+function closeSidebar(){
+  document.getElementById("sd").classList.remove("open");
+  document.getElementById("overlay").classList.remove("show");
+}
+// Close sidebar on nav item click (mobile)
+document.querySelectorAll(".ni2").forEach(n=>n.addEventListener("click",()=>{if(window.innerWidth<=640)closeSidebar()}));
+
+// ── INIT ──
+async function initDB(){
+  await Promise.all([loadArts(),loadCats(),loadSettings()]);
+  updateStats(); renderRecent(); checkSb();
+}
+
+async function loadArts(){
+  const d=await sbF("articles","?select=id,title,slug,status,author,is_featured,is_breaking,view_count,created_at,published_at,category_id&order=created_at.desc&limit=200");
+  arts=d; renderArTable();
+  document.getElementById("draftBadge").textContent=arts.filter(a=>a.status==="draft").length;
+}
+async function loadCats(){
+  const d=await sbF("categories","?order=name.asc");
+  cats=d; renderCatGrid(); populateCatSel();
+}
+async function loadSettings(){
+  const d=await sbF("site_settings","?order=key.asc");
+  settings={};d.forEach(s=>settings[s.key]={id:s.id,value:s.value});
+  renderSettingsForm();
+}
+
+// ── STATS ──
+function updateStats(){
+  document.getElementById("st-tot").textContent=arts.length;
+  document.getElementById("st-pub").textContent=arts.filter(a=>a.status==="published").length;
+  document.getElementById("st-dr").textContent=arts.filter(a=>a.status==="draft").length;
+  document.getElementById("st-vw").textContent=arts.reduce((s,a)=>s+(a.view_count||0),0).toLocaleString("id");
+}
+
+// ── NAVIGATION ──
+const ptitles={db:"Dashboard",ar:"Kelola Artikel",ca:"Kelola Kategori",st:"Pengaturan",su:"Info Koneksi"};
+function goPage(n,el){
+  document.querySelectorAll(".pg").forEach(p=>p.classList.remove("active"));
+  document.getElementById("pg-"+n)?.classList.add("active");
+  document.querySelectorAll(".ni2").forEach(x=>x.classList.remove("active"));
+  if(el)el.classList.add("active");
+  document.getElementById("ptitle").textContent=ptitles[n]||n;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// ── ARTICLES TABLE ──
+function filterAr(){arPg=1;renderArTable();}
+function getFiltered(){
+  const q=(document.getElementById("arSrch")?.value||"").toLowerCase();
+  const st=document.getElementById("arSt")?.value||"";
+  const cat=document.getElementById("arCat")?.value||"";
+  return arts.filter(a=>(!q||a.title.toLowerCase().includes(q))&&(!st||a.status===st)&&(!cat||a.category_id===cat));
+}
+function renderArTable(){
+  const fil=getFiltered(),st=(arPg-1)*PP,pg=fil.slice(st,st+PP),tb=document.getElementById("arTb");
+  if(!pg.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--mu)">Tidak ada artikel.</td></tr>';}
+  else{
+    tb.innerHTML=pg.map(a=>{
+      const c=cats.find(x=>x.id===a.category_id);
+      const d=a.created_at?new Date(a.created_at).toLocaleDateString("id-ID",{day:"2-digit",month:"short"}):"—";
+      return`<tr>
+        <td class="td-title"><div class="ttl" title="${esc(a.title)}">${esc(a.title)}</div><small>${a.slug||""}</small></td>
+        <td>${c?`<span class="tag" style="background:${c.color}22;color:${c.color}">${esc(c.name)}</span>`:"—"}</td>
+        <td><span class="tag t${a.status[0]}">${a.status}</span>${a.is_breaking?' <span class="tag" style="background:#fee2e2;color:#b91c1c">🔴</span>':""}</td>
+        <td style="font-size:12px;color:var(--mu);white-space:nowrap">${d}</td>
+        <td style="font-size:12px">${(a.view_count||0).toLocaleString("id")}</td>
+        <td style="white-space:nowrap"><button class="bi" onclick="editArt('${a.id}')" title="Edit">✏️</button><button class="bi d" onclick="confirmDel('art','${a.id}','${esc(a.title)}')" title="Hapus">🗑️</button></td>
+      </tr>`;
+    }).join("");
+  }
+  const tot=fil.length,tp=Math.ceil(tot/PP);
+  document.getElementById("arPi").textContent=tot?`${(arPg-1)*PP+1}–${Math.min(arPg*PP,tot)} dari ${tot}`:"0 artikel";
+  const pb=document.getElementById("arPb");pb.innerHTML="";
+  for(let i=1;i<=Math.min(tp,8);i++){const b=document.createElement("button");b.className="pbn"+(i===arPg?" active":"");b.textContent=i;b.onclick=(p=>()=>{arPg=p;renderArTable()})(i);pb.appendChild(b);}
+}
+function renderRecent(){
+  const tb=document.getElementById("dbTb");
+  if(!arts.length){tb.innerHTML='<tr><td colspan="4" style="text-align:center;padding:16px;color:var(--mu)">Belum ada artikel.</td></tr>';return;}
+  tb.innerHTML=arts.slice(0,5).map(a=>{
+    const c=cats.find(x=>x.id===a.category_id);
+    const d=a.created_at?new Date(a.created_at).toLocaleDateString("id-ID",{day:"2-digit",month:"short"}):"—";
+    return`<tr><td class="td-title"><div class="ttl" title="${esc(a.title)}">${esc(a.title)}</div></td><td>${c?`<span class="tag" style="background:${c.color}22;color:${c.color}">${esc(c.name)}</span>`:"—"}</td><td><span class="tag t${a.status[0]}">${a.status}</span></td><td style="font-size:12px;color:var(--mu)">${d}</td></tr>`;
+  }).join("");
+}
+
+// ── PHOTO UPLOAD ──
+let uploadedPhotoUrl = "";
+async function handlePhotoUpload(e){
+  const file=e.target.files[0]; if(!file)return;
+  if(file.size>5*1024*1024){toast("Foto terlalu besar (maks 5MB)",true);return;}
+  // Tampilkan preview lokal dulu
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    document.getElementById("previewImg").src=ev.target.result;
+    document.getElementById("previewWrap").style.display="block";
+    document.getElementById("uploadPlaceholder").style.display="none";
+  };
+  reader.readAsDataURL(file);
+  // Upload ke Supabase Storage
+  const prog=document.getElementById("uploadProgress");
+  const bar=document.getElementById("upBar");
+  prog.classList.add("show"); bar.style.width="20%";
+  toast("⏳ Mengupload foto...");
+  try{
+    const fname=Date.now()+"_"+file.name.replace(/[^a-z0-9._-]/gi,"_");
+    const url=`${SB}/storage/v1/object/article-photos/${fname}`;
+    bar.style.width="50%";
+    const r=await fetch(url,{
+      method:"POST",
+      headers:{"apikey":SK,"Authorization":"Bearer "+SK,"Content-Type":file.type,"x-upsert":"true"},
+      body:file
+    });
+    bar.style.width="90%";
+    if(r.ok){
+      uploadedPhotoUrl=`${SB}/storage/v1/object/public/article-photos/${fname}`;
+      document.getElementById("arCov").value=uploadedPhotoUrl;
+      bar.style.width="100%";
+      toast("✅ Foto berhasil diupload!");
+    } else {
+      // Fallback: pakai base64 data URL sebagai cover (disimpan sebagai URL)
+      uploadedPhotoUrl=document.getElementById("previewImg").src;
+      document.getElementById("arCov").value="[foto-lokal-uploaded]";
+      toast("⚠️ Storage belum aktif — foto tersimpan lokal");
+    }
+  } catch(err){
+    uploadedPhotoUrl=document.getElementById("previewImg").src;
+    toast("⚠️ Upload gagal, gunakan URL langsung",true);
+  }
+  setTimeout(()=>{prog.classList.remove("show");bar.style.width="0%";},1000);
+}
+function clearPhoto(){
+  uploadedPhotoUrl="";
+  document.getElementById("arCov").value="";
+  document.getElementById("previewWrap").style.display="none";
+  document.getElementById("uploadPlaceholder").style.display="block";
+  document.getElementById("photoInput").value="";
+}
+function onUrlInput(){
+  const url=document.getElementById("arCov").value.trim();
+  if(url.startsWith("http")){
+    uploadedPhotoUrl=url;
+    document.getElementById("previewImg").src=url;
+    document.getElementById("previewWrap").style.display="block";
+    document.getElementById("uploadPlaceholder").style.display="none";
+  } else if(!url){
+    clearPhoto();
+  }
+}
+
+// ── ARTICLE MODAL ──
+function openArtModal(){
+  document.getElementById("arId").value="";
+  ["arTit","arSlg","arExc","arCov"].forEach(x=>document.getElementById(x).value="");
+  document.getElementById("arCnt").innerHTML="";
+  document.getElementById("arAut").value="Tim Redaksi";
+  document.getElementById("arSt2").value="draft";
+  document.getElementById("arFt").checked=false;
+  document.getElementById("arBk").checked=false;
+  clearPhoto();
+  document.getElementById("moArT").textContent="✏️ Artikel Baru";
+  openModal("moAr");
+}
+async function editArt(id){
+  const d=await sbF("articles","?id=eq."+id+"&select=*&limit=1");
+  if(!d.length){toast("Gagal load",true);return;}
+  const a=d[0];
+  document.getElementById("arId").value=a.id;
+  document.getElementById("arTit").value=a.title||"";
+  document.getElementById("arSlg").value=a.slug||"";
+  document.getElementById("arExc").value=a.excerpt||"";
+  document.getElementById("arCnt").innerHTML=a.content||"";
+  document.getElementById("arAut").value=a.author||"Tim Redaksi";
+  document.getElementById("arSt2").value=a.status||"draft";
+  document.getElementById("arFt").checked=!!a.is_featured;
+  document.getElementById("arBk").checked=!!a.is_breaking;
+  document.getElementById("arCat2").value=a.category_id||"";
+  // Set cover
+  const covUrl=a.cover_image_url||"";
+  document.getElementById("arCov").value=covUrl;
+  uploadedPhotoUrl=covUrl;
+  if(covUrl&&covUrl.startsWith("http")){
+    document.getElementById("previewImg").src=covUrl;
+    document.getElementById("previewWrap").style.display="block";
+    document.getElementById("uploadPlaceholder").style.display="none";
+  } else {
+    clearPhoto();
+  }
+  document.getElementById("moArT").textContent="✏️ Edit Artikel";
+  openModal("moAr");
+}
+async function saveArt(){
+  const id=document.getElementById("arId").value;
+  const tit=document.getElementById("arTit").value.trim();
+  const slg=document.getElementById("arSlg").value.trim();
+  if(!tit||!slg){toast("Judul & slug wajib diisi!",true);return;}
+  const covUrl=uploadedPhotoUrl&&uploadedPhotoUrl.startsWith("http")?uploadedPhotoUrl:(document.getElementById("arCov").value.trim()||"");
+  const b={
+    title:tit, slug:slg,
+    excerpt:document.getElementById("arExc").value.trim(),
+    content:document.getElementById("arCnt").innerHTML,
+    cover_image_url:covUrl||null,
+    author:document.getElementById("arAut").value.trim()||"Tim Redaksi",
+    status:document.getElementById("arSt2").value,
+    is_featured:document.getElementById("arFt").checked,
+    is_breaking:document.getElementById("arBk").checked,
+    category_id:document.getElementById("arCat2").value||null,
+    updated_at:new Date().toISOString()
+  };
+  if(b.status==="published"&&!id)b.published_at=new Date().toISOString();
+  const r=id?await sbPa("articles",id,b):await sbPo("articles",{...b,created_at:new Date().toISOString()});
+  if(!r.ok){toast("Gagal: "+(r.err||"Error"),true);return;}
+  closeModal("moAr");
+  await loadArts(); updateStats(); renderRecent();
+  toast(id?"✅ Artikel diperbarui!":"✅ Artikel tersimpan!");
+}
+
+// ── CATEGORIES ──
+function renderCatGrid(){
+  const g=document.getElementById("caGr");
+  if(!cats.length){g.innerHTML='<div style="text-align:center;padding:20px;color:var(--mu);grid-column:1/-1">Belum ada kategori.</div>';return;}
+  g.innerHTML=cats.map(c=>{
+    const cnt=arts.filter(a=>a.category_id===c.id).length;
+    return`<div class="cc" style="border-left:4px solid ${c.color}"><div class="ccn">${esc(c.name)}</div><div class="ccc">${cnt} artikel</div><div class="cca"><button class="bi" onclick="editCat('${c.id}')">✏️</button><button class="bi d" onclick="confirmDel('cat','${c.id}','${esc(c.name)}')">🗑️</button></div></div>`;
+  }).join("");
+}
+function populateCatSel(){
+  ["arCat2","arCat"].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const first=id==="arCat"?'<option value="">Semua Kategori</option>':"<option value=''>— Pilih Kategori —</option>";
+    el.innerHTML=first+cats.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join("");
+  });
+}
+function openCatModal(){
+  document.getElementById("catId").value="";
+  document.getElementById("catNm").value="";
+  document.getElementById("catSl").value="";
+  document.getElementById("catCl").value="#2d6e4e";
+  document.getElementById("moCatT").textContent="🏷️ Tambah Kategori";
+  openModal("moCat");
+}
+async function editCat(id){
+  const c=cats.find(x=>x.id===id);if(!c)return;
+  document.getElementById("catId").value=c.id;
+  document.getElementById("catNm").value=c.name;
+  document.getElementById("catSl").value=c.slug;
+  document.getElementById("catCl").value=c.color;
+  document.getElementById("moCatT").textContent="🏷️ Edit Kategori";
+  openModal("moCat");
+}
+async function saveCat(){
+  const id=document.getElementById("catId").value;
+  const nm=document.getElementById("catNm").value.trim();
+  const sl=document.getElementById("catSl").value.trim();
+  const cl=document.getElementById("catCl").value;
+  if(!nm||!sl){toast("Nama & slug wajib!",true);return;}
+  const r=id?await sbPa("categories",id,{name:nm,slug:sl,color:cl}):await sbPo("categories",{name:nm,slug:sl,color:cl});
+  if(!r.ok){toast("Error: "+(r.err||"Gagal"),true);return;}
+  closeModal("moCat"); await loadCats();
+  toast(id?"✅ Kategori diperbarui!":"✅ Kategori ditambahkan!");
+}
+function genCatSlug(){document.getElementById("catSl").value=slugify(document.getElementById("catNm").value);}
+
+// ── SETTINGS ──
+const SLBLS={site_name:"Nama Website",site_tagline:"Tagline",site_email:"Email Redaksi",site_phone:"Telepon",site_address:"Alamat",facebook_url:"URL Facebook",instagram_url:"URL Instagram",youtube_url:"URL YouTube",whatsapp_number:"No. WhatsApp",breaking_news:"Teks Breaking News"};
+function renderSettingsForm(){
+  document.getElementById("stFm").innerHTML=Object.keys(SLBLS).map(k=>`<div class="fld"><label class="fll">${SLBLS[k]}</label><input class="fli" type="text" id="set-${k}" value="${esc(settings[k]?.value||"")}" placeholder="${SLBLS[k]}"/></div>`).join("");
+}
+async function saveSettings(){
+  let ok=0;
+  for(const k of Object.keys(SLBLS)){
+    const v=document.getElementById("set-"+k)?.value||"";
+    const r=settings[k]?await sbPa("site_settings",settings[k].id,{value:v,updated_at:new Date().toISOString()}):await sbPo("site_settings",{key:k,value:v});
+    if(r.ok)ok++;
+  }
+  toast(`✅ ${ok} pengaturan tersimpan!`); await loadSettings();
+}
+
+// ── STATUS CHECK ──
+async function checkSb(){
+  document.getElementById("s1").innerHTML='<span style="color:var(--mu)">⏳</span>';
+  const [da,dc]=await Promise.all([sbF("articles","?limit=1"),sbF("categories","?limit=1")]);
+  document.getElementById("s1").innerHTML='<span style="color:var(--success)">✅ Aktif</span>';
+  document.getElementById("s2").innerHTML=Array.isArray(da)?'<span style="color:var(--success)">✅ OK</span>':'<span style="color:var(--danger)">❌</span>';
+  document.getElementById("s3").innerHTML=Array.isArray(dc)?'<span style="color:var(--success)">✅ OK</span>':'<span style="color:var(--danger)">❌</span>';
+  toast("✅ Supabase terhubung!");
+}
+
+// ── DELETE ──
+function confirmDel(tp,id,nm){
+  document.getElementById("delSub").textContent=`"${nm}" akan dihapus permanen.`;
+  document.getElementById("delBtn").onclick=async()=>{
+    closeModal("moDel");
+    const tb=tp==="art"?"articles":"categories";
+    const r=await sbDel(tb,id);
+    if(!r.ok){toast("Gagal hapus",true);return;}
+    if(tp==="art"){await loadArts();updateStats();renderRecent();}else await loadCats();
+    toast("✅ Berhasil dihapus!");
+  };
+  openModal("moDel");
+}
+
+// ── MODAL HELPERS ──
+function openModal(id){document.getElementById(id).classList.add("active");document.body.style.overflow="hidden";}
+function closeModal(id){document.getElementById(id).classList.remove("active");document.body.style.overflow="";}
+document.querySelectorAll(".mo").forEach(o=>o.addEventListener("click",e=>{if(e.target===o)closeModal(o.id)}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".mo.active").forEach(o=>closeModal(o.id))});
+
+// ── UTILS ──
+function toast(msg,err=false){
+  const t=document.getElementById("tst");t.textContent=msg;
+  t.className="tst s"+(err?" er":"");
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("s"),3200);
+}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}
+function slugify(s){return s.toLowerCase().replace(/[àáâãäå]/g,"a").replace(/[èéêë]/g,"e").replace(/[ìíîï]/g,"i").replace(/[òóôõö]/g,"o").replace(/[ùúûü]/g,"u").replace(/[^a-z0-9\s-]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-").trim().replace(/^-|-$/g,"")}
+function genSlug(){document.getElementById("arSlg").value=slugify(document.getElementById("arTit").value);}
+function fmt(cmd){document.execCommand(cmd,false,null);document.getElementById("arCnt").focus();}
+function insertLink(){const u=prompt("URL:");if(u)document.execCommand("createLink",false,u);document.getElementById("arCnt").focus();}
+</script>
+</body>
+</html>

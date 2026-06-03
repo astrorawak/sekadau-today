@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Sekadau Today — Berita Terkini Kabupaten Sekadau</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@400;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+
 :root{--gd:#1a4731;--gm:#2d6e4e;--gold:#f0a500;--org:#e05c2a;--bg:#f5f2eb;--bgd:#111a14;--sf:#fff;--tx:#1c1c1c;--mu:#6b7280;--bd:#d9d3c3;--fh:"Playfair Display",Georgia,serif;--fb:"Source Serif 4",Georgia,serif;--fu:"DM Sans",sans-serif;--mx:1240px;--r:4px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tx);font-family:var(--fb);line-height:1.6}
@@ -13,255 +13,286 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}ul{list-st
 .c{max-width:var(--mx);margin:0 auto;padding:0 20px}
 .badge{display:inline-block;font-family:var(--fu);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
 .br{background:var(--org);color:#fff}.bg2{background:var(--gm);color:#fff}.bo{background:var(--gold);color:#fff}
-
 /* BREAKING BAR */
-.bb{background:var(--org);color:#fff;font-family:var(--fu);font-size:13px;display:flex;align-items:center;height:36px;overflow:hidden}
-.bbl{background:#b03d17;padding:0 14px;height:100%;display:flex;align-items:center;white-space:nowrap;font-weight:700;flex-shrink:0}
+.bb{background:var(--org);color:#fff;font-family:var(--fu);font-size:13px;display:flex;align-items:center;height:34px;overflow:hidden}
+.bbl{background:#b03d17;padding:0 12px;height:100%;display:flex;align-items:center;white-space:nowrap;font-weight:700;flex-shrink:0}
 .bbt{flex:1;overflow:hidden}
-.bbs{display:flex;gap:60px;white-space:nowrap;animation:tick 40s linear infinite;padding-left:24px}
+.bbs{display:flex;gap:60px;white-space:nowrap;animation:tick 40s linear infinite;padding-left:20px}
 .bbs span::before{content:"◆ ";font-size:9px;opacity:.6}
 @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* TOPNAV — hanya info redaksi, TANPA link admin */
-.tn{background:var(--bgd);color:rgba(255,255,255,.7);font-family:var(--fu);font-size:12px;padding:6px 0}
+/* TOPNAV */
+.tn{background:var(--bgd);color:rgba(255,255,255,.7);font-family:var(--fu);font-size:12px;padding:5px 0}
 .tn .c{display:flex;justify-content:space-between;align-items:center}
-.tnl{display:flex;gap:16px}
-.tnl a{opacity:.7;transition:opacity .2s}
-.tnl a:hover{opacity:1;color:var(--gold)}
-
+.tnl{display:flex;gap:14px}.tnl a{opacity:.7;transition:opacity .2s}.tnl a:hover{opacity:1;color:var(--gold)}
 /* HEADER */
-.hd{background:var(--gd);padding:16px 0 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
-.hd .c{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.ln{font-family:var(--fh);font-size:26px;font-weight:900;color:#fff;letter-spacing:-.5px;line-height:1}
+.hd{background:var(--gd);padding:14px 0 12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.hd .c{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.logo-wrap{display:flex;flex-direction:column;line-height:1}
+.ln{font-family:var(--fh);font-size:24px;font-weight:900;color:#fff;letter-spacing:-.5px}
 .ln em{color:var(--gold);font-style:normal}
-.ls{font-family:var(--fu);font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-top:3px}
+.ls{font-family:var(--fu);font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-top:2px}
 .hn{display:flex;align-items:center;gap:2px}
 .hn a{font-family:var(--fu);font-size:13px;font-weight:500;color:rgba(255,255,255,.8);padding:6px 10px;border-radius:3px;transition:all .2s;white-space:nowrap}
-.hn a:hover,.hn a.active{background:rgba(255,255,255,.12);color:#fff}
-.hn a.active{color:var(--gold)}
-.hbg{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px}
-
+.hn a:hover,.hn a.active{background:rgba(255,255,255,.12);color:var(--gold)}
+.hbg{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px;line-height:1}
 /* SECTION TABS */
-.stb{background:var(--sf);border-bottom:2px solid var(--bd);position:sticky;top:58px;z-index:90}
+.stb{background:var(--sf);border-bottom:2px solid var(--bd);position:sticky;top:54px;z-index:90}
 .stb .c{display:flex;align-items:center;overflow-x:auto;scrollbar-width:none}
 .stb .c::-webkit-scrollbar{display:none}
-.stb a{font-family:var(--fu);font-size:12.5px;font-weight:600;color:var(--mu);padding:10px 14px;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s}
+.stb a{font-family:var(--fu);font-size:12px;font-weight:600;color:var(--mu);padding:10px 14px;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;cursor:pointer}
 .stb a:hover{color:var(--gd)}.stb a.active{color:var(--gd);border-bottom-color:var(--gold)}
+/* FOOTER */
+.ft{background:var(--bgd);color:rgba(255,255,255,.75);padding:32px 0 0;margin-top:36px;font-family:var(--fu)}
+.ftg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08)}
+.fbn{font-family:var(--fh);font-size:20px;font-weight:900;color:#fff;margin-bottom:7px}
+.fbn em{color:var(--gold);font-style:normal}
+.fd2{font-size:12px;line-height:1.6;color:rgba(255,255,255,.5);margin-bottom:12px}
+.fsc{display:flex;gap:8px}
+.fsc a{width:30px;height:30px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;transition:background .2s}
+.fsc a:hover{background:var(--gm)}
+.fc h5{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px}
+.fc ul li{margin-bottom:7px}.fc ul li a{font-size:12px;color:rgba(255,255,255,.6);transition:color .2s}.fc ul li a:hover{color:var(--gold)}
+.ftb{display:flex;align-items:center;justify-content:space-between;padding:12px 0;font-size:11px;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:8px}
+/* SCROLL TOP */
+.sct{position:fixed;bottom:18px;right:14px;width:36px;height:36px;background:var(--gd);color:#fff;border:none;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .3s;z-index:80}
+.sct.v{opacity:1;pointer-events:all}
+/* MOBILE NAV */
+.mnv{display:none;position:fixed;inset:0;background:var(--bgd);z-index:300;flex-direction:column;padding:18px 20px;transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto}
+.mnv.o{transform:translateX(0);display:flex}
+.mnv-logo{font-family:var(--fh);font-size:20px;font-weight:900;color:#fff;margin-bottom:16px}
+.mnv-logo em{color:var(--gold);font-style:normal}
+.mnv a{font-family:var(--fu);font-size:16px;font-weight:500;color:rgba(255,255,255,.8);padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s}
+.mnv a:hover{color:var(--gold)}
+.mnv-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:250}
+.mnv-overlay.show{display:block}
+/* UTILS */
+.sk{background:linear-gradient(90deg,#e5e7eb 25%,#f3f4f6 50%,#e5e7eb 75%);background-size:200% 100%;animation:sh 1.5s infinite;border-radius:4px}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* RESPONSIVE */
+@media(max-width:900px){.ftg{grid-template-columns:1fr 1fr;gap:20px}}
+@media(max-width:600px){
+  .hn{display:none}.hbg{display:block}
+  .ftg{grid-template-columns:1fr}.ln{font-size:20px}
+  #topdate{display:none}
+}
 
-/* MAIN */
-.main{padding:24px 0 40px}
-.main .c{display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:start}
-
+/* INDEX SPESIFIK */
+.main{padding:22px 0 36px}
+.main .c{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
 /* FEATURED */
-.fg{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:3px;background:var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:24px}
+.fg{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:3px;background:var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:20px;min-height:380px}
 .fm{grid-row:1/3;position:relative;overflow:hidden;cursor:pointer}
-.fi{width:100%;height:400px;object-fit:cover;transition:transform .5s}.fm:hover .fi{transform:scale(1.03)}
-.fo{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(10,30,15,.92) 0%,rgba(10,30,15,.55) 55%,transparent 100%);padding:24px 20px 18px}
-.fo h2{font-family:var(--fh);font-size:20px;font-weight:700;color:#fff;line-height:1.3;margin:7px 0}
-.fmm{font-family:var(--fu);font-size:11px;color:rgba(255,255,255,.6);display:flex;gap:12px;flex-wrap:wrap}
-.fs{display:flex;flex-direction:column}
-.fsi{flex:1;position:relative;overflow:hidden;cursor:pointer}
+.fi{width:100%;height:100%;min-height:380px;object-fit:cover;transition:transform .5s}.fm:hover .fi{transform:scale(1.03)}
+.fo{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(10,30,15,.93) 0%,rgba(10,30,15,.5) 55%,transparent 100%);padding:22px 18px 16px}
+.fo h2{font-family:var(--fh);font-size:19px;font-weight:700;color:#fff;line-height:1.3;margin:6px 0}
+.fo h2:hover{text-decoration:underline}
+.fmm{font-family:var(--fu);font-size:11px;color:rgba(255,255,255,.6);display:flex;gap:10px;flex-wrap:wrap}
+.fs{display:flex;flex-direction:column;gap:3px}
+.fsi{flex:1;position:relative;overflow:hidden;cursor:pointer;min-height:120px}
 .fsi:hover .fsm{transform:scale(1.05)}
-.fsm{width:100%;height:100%;min-height:120px;object-fit:cover;transition:transform .5s}
-.fso{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(10,30,15,.9),transparent);padding:14px 12px 10px}
-.fso h3{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;line-height:1.35}
-
+.fsm{width:100%;height:100%;object-fit:cover;transition:transform .5s;display:block}
+.fso{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(10,30,15,.9),transparent);padding:12px 10px 8px}
+.fso h3{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;line-height:1.3}
+.fso h3:hover{text-decoration:underline}
 /* SECTION TITLE */
-.st2{font-family:var(--fu);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);padding:10px 0 9px;border-top:3px solid var(--gd);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.st2{font-family:var(--fu);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);padding:10px 0 8px;border-top:3px solid var(--gd);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
 .st2 a{font-weight:500;color:var(--gm);font-size:11px}
-
 /* NEWS LIST */
 .nl{display:flex;flex-direction:column}
-.ni{display:grid;grid-template-columns:100px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .15s}
+.ni{display:grid;grid-template-columns:100px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .15s;border-radius:var(--r)}
 .ni:last-child{border-bottom:none}
-.ni:hover{background:rgba(240,165,0,.04);margin:0 -8px;padding:12px 8px}
-.niw{overflow:hidden;border-radius:var(--r)}
+.ni:hover{background:rgba(240,165,0,.05);padding:12px 8px;margin:0 -8px}
+.niw{overflow:hidden;border-radius:var(--r);flex-shrink:0}
 .nii{width:100px;height:68px;object-fit:cover;transition:transform .4s}.ni:hover .nii{transform:scale(1.06)}
 .nic{font-family:var(--fu);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gm)}
-.nit{font-family:var(--fh);font-size:14px;font-weight:700;line-height:1.35;margin:3px 0}.ni:hover .nit{color:var(--gd)}
+.nit{font-family:var(--fh);font-size:14px;font-weight:700;line-height:1.35;margin:3px 0;color:var(--tx)}.ni:hover .nit{color:var(--gd)}
 .nim{font-family:var(--fu);font-size:11px;color:var(--mu)}
-
-/* HIGHLIGHT */
-.hc{background:var(--gd);border-radius:var(--r);overflow:hidden;display:grid;grid-template-columns:1fr 220px;margin:20px 0;cursor:pointer;transition:opacity .2s}
-.hc:hover{opacity:.94}
-.hcb{padding:20px;display:flex;flex-direction:column;justify-content:center;gap:8px}
-.hcl{font-family:var(--fu);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-.hct{font-family:var(--fh);font-size:18px;font-weight:700;color:#fff;line-height:1.3}
-.hcd{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5}
-.hci{width:220px;height:180px;object-fit:cover}
-
 /* SIDEBAR */
-.sb{display:flex;flex-direction:column;gap:22px}
+.sb{display:flex;flex-direction:column;gap:20px;position:sticky;top:120px}
 .ww{background:var(--gd);border-radius:var(--r);padding:16px;color:#fff}
 .wwh{font-family:var(--fu);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:10px}
 .wwm{display:flex;align-items:center;justify-content:space-between}
-.wwt{font-family:var(--fh);font-size:44px;font-weight:700;line-height:1}
-.wwt sup{font-size:20px;vertical-align:super}
-.wwi{font-size:40px}
-.wwl{font-family:var(--fu);font-size:12px;font-weight:500;margin-top:5px;opacity:.8}
-.wwc{font-family:var(--fu);font-size:11px;opacity:.6;margin-top:2px}
+.wwt{font-family:var(--fh);font-size:42px;font-weight:700;line-height:1}
+.wwt sup{font-size:18px;vertical-align:super}
+.wwi{font-size:38px}
+.wwl{font-family:var(--fu);font-size:12px;font-weight:500;margin-top:4px;opacity:.8}
+.wwc{font-family:var(--fu);font-size:11px;opacity:.6;margin-top:1px}
 .wwr{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.15);font-family:var(--fu);font-size:11px}
 .wwr span{opacity:.7}.wwr strong{display:block;font-size:12px;font-weight:600}
 .mri{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd);cursor:pointer}
 .mri:last-child{border-bottom:none}
-.mrn{font-family:var(--fh);font-size:26px;font-weight:900;color:var(--bd);line-height:1}.mri:hover .mrn{color:var(--gold)}
-.mrt{font-family:var(--fh);font-size:13px;font-weight:700;line-height:1.35}.mri:hover .mrt{color:var(--gd)}
+.mrn{font-family:var(--fh);font-size:24px;font-weight:900;color:var(--bd);line-height:1;transition:color .2s}.mri:hover .mrn{color:var(--gold)}
+.mrt{font-family:var(--fh);font-size:13px;font-weight:700;line-height:1.3;color:var(--tx)}.mri:hover .mrt{color:var(--gd)}
 .mrd{font-family:var(--fu);font-size:10px;color:var(--mu);margin-top:2px}
+/* NEWSLETTER */
 .nwl{background:var(--bgd);border-radius:var(--r);padding:18px;color:#fff}
 .nwl h4{font-family:var(--fh);font-size:16px;font-weight:700;margin-bottom:5px}
 .nwl p{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:12px;line-height:1.5}
-.nwl input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:9px 11px;color:#fff;font-family:var(--fu);font-size:13px;margin-bottom:7px;outline:none}
+.nwl input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:9px 11px;color:#fff;font-family:var(--fu);font-size:13px;margin-bottom:7px;outline:none;transition:border-color .2s}
+.nwl input:focus{border-color:var(--gold)}
 .nwl button{width:100%;background:var(--gold);color:#fff;border:none;border-radius:3px;padding:9px;font-family:var(--fu);font-size:13px;font-weight:700;cursor:pointer;transition:background .2s}
 .nwl button:hover{background:#d4920a}
-
-/* FOOTER */
-.ft{background:var(--bgd);color:rgba(255,255,255,.75);padding:36px 0 0;margin-top:36px;font-family:var(--fu)}
-.ftg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.08)}
-.fbn{font-family:var(--fh);font-size:22px;font-weight:900;color:#fff;margin-bottom:8px}
-.fbn em{color:var(--gold);font-style:normal}
-.fd2{font-size:12px;line-height:1.6;color:rgba(255,255,255,.5);margin-bottom:14px}
-.fsc{display:flex;gap:8px}
-.fsc a{width:32px;height:32px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;transition:background .2s}
-.fsc a:hover{background:var(--gm)}
-.fc h5{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
-.fc ul li{margin-bottom:8px}.fc ul li a{font-size:12px;color:rgba(255,255,255,.6);transition:color .2s}.fc ul li a:hover{color:var(--gold)}
-.ftb{display:flex;align-items:center;justify-content:space-between;padding:14px 0;font-size:11px;color:rgba(255,255,255,.3)}
-
-/* SKELETON */
-.sk{background:linear-gradient(90deg,#e5e7eb 25%,#f3f4f6 50%,#e5e7eb 75%);background-size:200% 100%;animation:sh 1.5s infinite;border-radius:4px}
-@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.ad-ph{background:repeating-linear-gradient(45deg,rgba(0,0,0,.03),rgba(0,0,0,.03) 4px,transparent 4px,transparent 14px);border:1px dashed var(--bd);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--mu);font-family:var(--fu);font-size:11px;text-transform:uppercase;height:80px;margin:14px 0}
-.sct{position:fixed;bottom:20px;right:16px;width:38px;height:38px;background:var(--gd);color:#fff;border:none;border-radius:50%;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.15);opacity:0;pointer-events:none;transition:opacity .3s;z-index:80}
-.sct.v{opacity:1;pointer-events:all}
-
-/* MOBILE NAV */
-.mnv{display:none;position:fixed;inset:0;background:var(--bgd);z-index:200;flex-direction:column;padding:20px;transform:translateX(-100%);transition:transform .3s ease}
-.mnv.o{transform:translateX(0);display:flex}
-.mnv a{font-family:var(--fu);font-size:16px;font-weight:500;color:rgba(255,255,255,.8);padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-.mnv a:hover{color:var(--gold)}
-/* PENTING: Tidak ada link admin di mobile nav */
-
-/* RESPONSIVE */
-@media(max-width:900px){.main .c{grid-template-columns:1fr}.sb{display:none}.ftg{grid-template-columns:1fr 1fr;gap:20px}}
+/* AD */
+.ad-ph{background:repeating-linear-gradient(45deg,rgba(0,0,0,.03),rgba(0,0,0,.03) 4px,transparent 4px,transparent 14px);border:1px dashed var(--bd);border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--mu);font-family:var(--fu);font-size:11px;text-transform:uppercase;height:72px;margin:12px 0}
+/* EMPTY STATE */
+.empty{text-align:center;padding:32px 20px;color:var(--mu);font-family:var(--fu)}
+.empty .ei{font-size:36px;margin-bottom:8px}
+.empty p{font-size:13px}
+/* RESPONSIVE INDEX */
+@media(max-width:900px){.main .c{grid-template-columns:1fr}.sb{display:none;position:static}}
 @media(max-width:600px){
-  .hn{display:none}.hbg{display:block}
-  .fg{grid-template-columns:1fr}.fs{display:none}.fi{height:260px}
-  .hc{grid-template-columns:1fr}.hci{width:100%;height:150px}
-  .ftg{grid-template-columns:1fr}.ln{font-size:22px}
-  .tn .c{justify-content:flex-end}
-  #topdate{display:none}
+  .fg{grid-template-columns:1fr;min-height:auto}
+  .fm{min-height:240px}.fi{min-height:240px}
+  .fs{display:none}
+  .ni{grid-template-columns:88px 1fr;gap:10px}
+  .nii{width:88px;height:60px}
 }
 </style>
 </head>
 <body>
-
-<!-- SUPABASE CONFIG -->
 <script>
-const SB="https://skrffjrxudrzskiqfoau.supabase.co",SK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrcmZmanJ4dWRyenNraXFmb2F1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NTk5MTMsImV4cCI6MjA5NjAzNTkxM30.j7NfVL77f7qEq58fENeljOulj65ieX5npwO8htfnt6g";
+
+const SB="https://skrffjrxudrzskiqfoau.supabase.co", SK="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNrcmZmanJ4dWRyenNraXFmb2F1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NTk5MTMsImV4cCI6MjA5NjAzNTkxM30.j7NfVL77f7qEq58fENeljOulj65ieX5npwO8htfnt6g";
 async function sbGet(t,q=""){
   try{
-    const r=await fetch(SB+"/rest/v1/"+t+q,{
-      headers:{"apikey":SK,"Authorization":"Bearer "+SK}
-    });
-    if(!r.ok){console.error("Supabase error:",r.status,t);return[];}
-    return await r.json();
-  }catch(e){console.error("Fetch error:",e);return[];}
+    const r=await fetch(SB+"/rest/v1/"+t+q,{headers:{"apikey":SK,"Authorization":"Bearer "+SK}});
+    return r.ok?await r.json():[];
+  }catch(e){return[];}
+}
+function escH(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function rt(d){
+  if(!d)return"Baru saja";
+  const s=Math.floor((Date.now()-new Date(d))/1000);
+  if(s<60)return"Baru saja";if(s<3600)return Math.floor(s/60)+" mnt lalu";
+  if(s<86400)return Math.floor(s/3600)+" jam lalu";if(s<172800)return"Kemarin";
+  return new Date(d).toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"});
+}
+function gcn(cats,id){const c=cats.find(x=>x.id===id);return c?c.name:"Berita";}
+function gcc(cats,id){const c=cats.find(x=>x.id===id);return c?c.color:"#2d6e4e";}
+// Navigasi ke halaman artikel
+function goArtikel(slug){window.location.href="/artikel.html?slug="+encodeURIComponent(slug);}
+// Tanggal
+const dy=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+const mo=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const nw=new Date();
+if(document.getElementById("topdate"))
+  document.getElementById("topdate").textContent=dy[nw.getDay()]+", "+nw.getDate()+" "+mo[nw.getMonth()]+" "+nw.getFullYear();
+window.addEventListener("scroll",()=>{const b=document.getElementById("sct");if(b)b.classList.toggle("v",scrollY>400);});
+// Mobile nav
+function openNav(){document.getElementById("mnv").classList.add("o");document.getElementById("mnvOverlay").classList.add("show");document.body.style.overflow="hidden";}
+function closeNav(){document.getElementById("mnv").classList.remove("o");document.getElementById("mnvOverlay").classList.remove("show");document.body.style.overflow="";}
+
+// STATE
+let allArts=[], allCats=[], activeCatId="";
+
+// FILTER KATEGORI
+function filterCat(slug, el){
+  if(el){
+    document.querySelectorAll(".stb a,.hn a").forEach(a=>a.classList.remove("active"));
+    el.classList.add("active");
+  }
+  const cat = allCats.find(c=>c.slug===slug);
+  activeCatId = cat ? cat.id : "";
+  renderArts();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function setActive(el){
+  document.querySelectorAll(".hn a").forEach(a=>a.classList.remove("active"));
+  el.classList.add("active");
 }
 </script>
 
-<!-- TOPNAV — bersih tanpa link admin -->
-<div class="tn">
-  <div class="c">
-    <span id="topdate" style="opacity:.7"></span>
-    <div class="tnl">
-      <a href="#">Tentang Kami</a>
-      <a href="#">Redaksi</a>
-      <a href="#">Iklan</a>
-      <a href="#">Kontak</a>
-    </div>
-  </div>
-</div>
 
+<!-- TOPNAV -->
+<div class="tn"><div class="c">
+  <span id="topdate" style="opacity:.7"></span>
+  <div class="tnl">
+    <a href="#">Tentang Kami</a>
+    <a href="#">Redaksi</a>
+    <a href="#">Iklan</a>
+    <a href="#">Kontak</a>
+  </div>
+</div></div>
 <!-- BREAKING BAR -->
 <div class="bb">
   <div class="bbl">🔴 TERKINI</div>
-  <div class="bbt">
-    <div class="bbs" id="bbs">
-      <span>Memuat berita terkini...</span>
-      <span>Sekadau Today — Media Terpercaya Kabupaten Sekadau</span>
-      <span>Memuat berita terkini...</span>
-      <span>Sekadau Today — Media Terpercaya Kabupaten Sekadau</span>
-    </div>
-  </div>
+  <div class="bbt"><div class="bbs" id="bbs">
+    <span>Memuat berita terkini...</span><span>Sekadau Today — Media Terpercaya Kabupaten Sekadau</span>
+    <span>Memuat berita terkini...</span><span>Sekadau Today — Media Terpercaya Kabupaten Sekadau</span>
+  </div></div>
+</div>
+<!-- HEADER -->
+<header class="hd"><div class="c">
+  <a href="/" class="logo-wrap">
+    <span class="ln">Sekadau <em>Today</em></span>
+    <span class="ls">Berita Terpercaya Kabupaten Sekadau</span>
+  </a>
+  <nav class="hn" id="mainNav">
+    <a href="/" class="active" onclick="setActive(this)">Beranda</a>
+    <a href="#" onclick="filterCat('',this)">Daerah</a>
+    <a href="#" onclick="filterCat('',this)">Politik</a>
+    <a href="#" onclick="filterCat('',this)">Ekonomi</a>
+    <a href="#" onclick="filterCat('',this)">Sosial</a>
+    <a href="#" onclick="filterCat('',this)">Budaya</a>
+    <a href="#" onclick="filterCat('',this)">Olahraga</a>
+  </nav>
+  <button class="hbg" onclick="openNav()">☰</button>
+</div></header>
+<!-- MOBILE NAV OVERLAY -->
+<div class="mnv-overlay" id="mnvOverlay" onclick="closeNav()"></div>
+<!-- MOBILE NAV -->
+<div class="mnv" id="mnv">
+  <button style="align-self:flex-end;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;margin-bottom:14px;line-height:1" onclick="closeNav()">✕</button>
+  <div class="mnv-logo">Sekadau <em>Today</em></div>
+  <a href="/">🏠 Beranda</a>
+  <a href="#" onclick="filterCat('daerah',null);closeNav()">📍 Daerah</a>
+  <a href="#" onclick="filterCat('politik',null);closeNav()">🏛 Politik</a>
+  <a href="#" onclick="filterCat('ekonomi',null);closeNav()">💰 Ekonomi</a>
+  <a href="#" onclick="filterCat('sosial',null);closeNav()">🤝 Sosial</a>
+  <a href="#" onclick="filterCat('budaya',null);closeNav()">🎭 Budaya</a>
+  <a href="#" onclick="filterCat('olahraga',null);closeNav()">⚽ Olahraga</a>
 </div>
 
-<!-- HEADER -->
-<header class="hd">
-  <div class="c">
-    <a href="/" style="display:flex;flex-direction:column;line-height:1">
-      <span class="ln">Sekadau <em>Today</em></span>
-      <span class="ls">Berita Terpercaya Kabupaten Sekadau</span>
-    </a>
-    <nav class="hn">
-      <a href="/" class="active">Beranda</a>
-      <a href="#">Daerah</a>
-      <a href="#">Politik</a>
-      <a href="#">Ekonomi</a>
-      <a href="#">Sosial</a>
-      <a href="#">Budaya</a>
-      <a href="#">Olahraga</a>
-    </nav>
-    <button class="hbg" onclick="document.getElementById('mnv').classList.toggle('o')">☰</button>
-  </div>
-</header>
 
-<!-- SECTION TABS — diisi dinamis dari kategori Supabase -->
+<!-- SECTION TABS — diisi dinamis -->
 <div class="stb">
   <div class="c" id="ctb">
-    <a href="/" class="active">Semua</a>
+    <a class="active" onclick="filterCat('',this)">Semua</a>
   </div>
 </div>
 
-<!-- MAIN -->
 <main class="main">
   <div class="c">
     <!-- KIRI -->
     <div>
-      <!-- Featured skeleton -->
+      <!-- FEATURED -->
       <div id="ft">
         <div class="fg">
-          <div class="fm"><div class="fi sk" style="height:400px"></div></div>
+          <div class="fm"><div class="fi sk" style="min-height:380px"></div></div>
           <div class="fs">
-            <div class="fsi"><div class="fsm sk" style="min-height:120px"></div></div>
-            <div class="fsi"><div class="fsm sk" style="min-height:120px"></div></div>
+            <div class="fsi"><div class="sk" style="height:100%;min-height:120px"></div></div>
+            <div class="fsi"><div class="sk" style="height:100%;min-height:120px"></div></div>
           </div>
         </div>
       </div>
 
       <div class="ad-ph">Ruang Iklan — Hubungi Redaksi</div>
 
-      <div class="st2">Berita Terbaru <a href="#">Lihat Semua →</a></div>
-      <div class="nl" id="nl">
-        <div style="text-align:center;padding:24px;color:var(--mu);font-family:var(--fu)">Memuat berita...</div>
+      <div class="st2" id="listTitle">
+        <span>Berita Terbaru</span>
       </div>
-
-      <div class="hc">
-        <div class="hcb">
-          <span class="hcl">Laporan Mendalam</span>
-          <div class="hct">Deforestasi di Hulu Sungai Sekadau: Antara Sawit dan Harapan Masyarakat Dayak</div>
-          <p class="hcd">Investigasi tim Sekadau Today menelusuri perubahan tata guna lahan dan dampaknya terhadap kehidupan warga adat Kalimantan.</p>
-          <span class="badge bo">Baca Laporan →</span>
-        </div>
-        <img class="hci" src="https://placehold.co/440x180/374d3a/d4c8a8?text=Liputan+Khusus" alt="liputan"/>
+      <div class="nl" id="nl">
+        <div class="empty"><div class="ei">⏳</div><p>Memuat berita...</p></div>
       </div>
     </div>
 
     <!-- SIDEBAR -->
     <aside class="sb">
+      <!-- CUACA -->
       <div class="ww">
-        <div class="wwh">🌤 Cuaca Sekadau</div>
+        <div class="wwh">🌤 Cuaca Sekadau Hari Ini</div>
         <div class="wwm">
-          <div><div class="wwt">31<sup>°C</sup></div><div class="wwl">Sekadau, Kalbar</div><div class="wwc">Sebagian Berawan</div></div>
+          <div><div class="wwt">31<sup>°C</sup></div><div class="wwl">Sekadau, Kalimantan Barat</div><div class="wwc">Sebagian Berawan</div></div>
           <div class="wwi">⛅</div>
         </div>
         <div class="wwr">
@@ -270,162 +301,145 @@ async function sbGet(t,q=""){
           <div><span>UV</span><strong>Tinggi</strong></div>
         </div>
       </div>
-
+      <!-- MOST READ -->
       <div>
         <div class="st2">Paling Banyak Dibaca</div>
-        <div id="mr"><div style="text-align:center;padding:14px;color:var(--mu);font-family:var(--fu)">Memuat...</div></div>
+        <div id="mr"><div class="empty"><p>Memuat...</p></div></div>
       </div>
-
+      <!-- NEWSLETTER -->
       <div class="nwl">
         <h4>Newsletter Harian</h4>
         <p>Rangkuman berita Sekadau langsung di inbox kamu setiap pagi.</p>
-        <input type="email" placeholder="Email kamu..."/>
-        <button>Langganan Gratis</button>
+        <input type="email" id="nlEmail" placeholder="Email kamu..."/>
+        <button onclick="doNewsletter()">Langganan Gratis</button>
       </div>
     </aside>
   </div>
 </main>
 
-<!-- FOOTER — tanpa link admin -->
-<footer class="ft">
-  <div class="c">
-    <div class="ftg">
-      <div>
-        <div class="fbn">Sekadau <em>Today</em></div>
-        <p class="fd2">Media berita daerah terpercaya yang menyajikan informasi aktual seputar Kabupaten Sekadau, Kalimantan Barat. Berkomitmen pada jurnalisme jujur dan berimbang.</p>
-        <div class="fsc"><a href="#">📘</a><a href="#">📷</a><a href="#">▶️</a><a href="#">💬</a></div>
+
+<footer class="ft"><div class="c">
+  <div class="ftg">
+    <div>
+      <div class="fbn">Sekadau <em>Today</em></div>
+      <p class="fd2">Media berita daerah terpercaya yang menyajikan informasi aktual seputar Kabupaten Sekadau, Kalimantan Barat.</p>
+      <div class="fsc">
+        <a href="#" title="Facebook">📘</a>
+        <a href="#" title="Instagram">📷</a>
+        <a href="#" title="YouTube">▶️</a>
+        <a href="#" title="WhatsApp">💬</a>
       </div>
-      <div class="fc"><h5>Rubrik</h5><ul>
-        <li><a href="#">Daerah</a></li><li><a href="#">Politik</a></li>
-        <li><a href="#">Ekonomi</a></li><li><a href="#">Sosial & Budaya</a></li>
-        <li><a href="#">Olahraga</a></li>
-      </ul></div>
-      <div class="fc"><h5>Layanan</h5><ul>
-        <li><a href="#">Pasang Iklan</a></li><li><a href="#">Press Release</a></li>
-        <li><a href="#">Kabar Warga</a></li><li><a href="#">Infografis</a></li>
-      </ul></div>
-      <div class="fc"><h5>Tentang</h5><ul>
-        <li><a href="#">Profil Redaksi</a></li><li><a href="#">Kode Etik</a></li>
-        <li><a href="#">Kontak Kami</a></li><li><a href="#">Kebijakan Privasi</a></li>
-      </ul></div>
     </div>
-    <div class="ftb">
-      <span>© 2025 Sekadau Today. Seluruh hak cipta dilindungi. Terdaftar di Dewan Pers Indonesia.</span>
-    </div>
+    <div class="fc"><h5>Rubrik</h5><ul>
+      <li><a href="#" onclick="filterCat('daerah')">Daerah</a></li>
+      <li><a href="#" onclick="filterCat('politik')">Politik</a></li>
+      <li><a href="#" onclick="filterCat('ekonomi')">Ekonomi</a></li>
+      <li><a href="#" onclick="filterCat('sosial')">Sosial & Budaya</a></li>
+      <li><a href="#" onclick="filterCat('olahraga')">Olahraga</a></li>
+    </ul></div>
+    <div class="fc"><h5>Layanan</h5><ul>
+      <li><a href="mailto:iklan@sekadautoday.com">Pasang Iklan</a></li>
+      <li><a href="mailto:redaksi@sekadautoday.com">Press Release</a></li>
+      <li><a href="mailto:redaksi@sekadautoday.com">Kabar Warga</a></li>
+    </ul></div>
+    <div class="fc"><h5>Tentang</h5><ul>
+      <li><a href="#">Profil Redaksi</a></li>
+      <li><a href="#">Kode Etik</a></li>
+      <li><a href="#">Kontak Kami</a></li>
+      <li><a href="#">Kebijakan Privasi</a></li>
+    </ul></div>
   </div>
-</footer>
-
-<!-- MOBILE NAV — tanpa link admin -->
-<div class="mnv" id="mnv">
-  <button style="align-self:flex-end;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;margin-bottom:16px" onclick="document.getElementById('mnv').classList.remove('o')">✕</button>
-  <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#fff;margin-bottom:18px">Sekadau <span style="color:var(--gold)">Today</span></div>
-  <a href="/">🏠 Beranda</a>
-  <a href="#">📍 Daerah</a>
-  <a href="#">🏛 Politik</a>
-  <a href="#">💰 Ekonomi</a>
-  <a href="#">🤝 Sosial</a>
-  <a href="#">🎭 Budaya</a>
-  <a href="#">⚽ Olahraga</a>
-</div>
-
+  <div class="ftb">
+    <span>© 2025 Sekadau Today. Seluruh hak cipta dilindungi.</span>
+  </div>
+</div></footer>
 <button class="sct" id="sct" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
+
 <script>
-// TANGGAL
-const dy=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
-const mo=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-const nw=new Date();
-document.getElementById("topdate").textContent=dy[nw.getDay()]+", "+nw.getDate()+" "+mo[nw.getMonth()]+" "+nw.getFullYear();
-window.addEventListener("scroll",()=>document.getElementById("sct").classList.toggle("v",scrollY>400));
-
-function rt(d){
-  if(!d)return"Baru saja";
-  const s=Math.floor((Date.now()-new Date(d))/1000);
-  if(s<60)return"Baru saja";
-  if(s<3600)return Math.floor(s/60)+" mnt lalu";
-  if(s<86400)return Math.floor(s/3600)+" jam lalu";
-  if(s<172800)return"Kemarin";
-  return new Date(d).toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"});
+function placeholderImg(title, color){
+  const c=(color||"1a4731").replace("#","");
+  return "https://placehold.co/760x420/"+c+"/ffffff?text="+encodeURIComponent((title||"Berita").substring(0,20));
 }
-function gcn(cats,id){const c=cats.find(x=>x.id===id);return c?c.name:"Berita";}
 
-async function loadPage(){
-  // Load artikel dan kategori secara paralel
-  const [arts, cats] = await Promise.all([
-    sbGet("articles","?select=id,title,slug,excerpt,cover_image_url,category_id,author,is_featured,is_breaking,view_count,published_at&status=eq.published&order=published_at.desc&limit=20"),
-    sbGet("categories","?order=name.asc")
-  ]);
-
-  console.log("Loaded:",arts.length,"articles,",cats.length,"categories");
-
-  // BREAKING TICKER
-  const bk=arts.filter(a=>a.is_breaking).slice(0,6);
-  if(bk.length){
-    const all=[...bk,...bk];
-    document.getElementById("bbs").innerHTML=all.map(a=>"<span>"+escH(a.title)+"</span>").join("");
-  }
-
-  // CATEGORY TABS
-  document.getElementById("ctb").innerHTML='<a href="/" class="active">Semua</a>'+
-    cats.map(c=>'<a href="#">'+escH(c.name)+'</a>').join("");
-
-  // FEATURED
+function renderFeatured(arts, cats){
   const ft=arts.find(a=>a.is_featured)||arts[0];
-  const sd=arts.filter(a=>a!==ft).slice(0,2);
-  if(ft){
-    const fi=ft.cover_image_url||"https://placehold.co/760x400/1a4731/fff?text="+encodeURIComponent(ft.title.substring(0,20));
-    document.getElementById("ft").innerHTML=`<div class="fg">
-      <div class="fm">
-        <img class="fi" src="${fi}" alt="${escH(ft.title)}" onerror="this.src='https://placehold.co/760x400/1a4731/fff?text=Berita'"/>
-        <div class="fo">
-          <span class="badge ${ft.is_breaking?"br":"bg2"}">${ft.is_breaking?"BREAKING":"UTAMA"}</span>
-          <h2>${escH(ft.title)}</h2>
-          <div class="fmm">
-            <span>📰 ${escH(ft.author||"Tim Redaksi")}</span>
-            <span>🕐 ${rt(ft.published_at)}</span>
-            <span>👁 ${(ft.view_count||0).toLocaleString("id")} dibaca</span>
-          </div>
+  const sd=arts.filter(a=>a!==ft&&!a.is_featured).slice(0,2);
+  if(!ft){
+    document.getElementById("ft").innerHTML='<div class="empty"><div class="ei">📰</div><p>Belum ada artikel. Tambahkan artikel lewat dashboard!</p></div>';
+    return;
+  }
+  const fi=ft.cover_image_url||placeholderImg(ft.title,"1a4731");
+  const catColor=gcc(cats,ft.category_id);
+  document.getElementById("ft").innerHTML=`
+  <div class="fg">
+    <div class="fm" onclick="goArtikel('${ft.slug}')">
+      <img class="fi" src="${escH(fi)}" alt="${escH(ft.title)}" 
+           onerror="this.src='https://placehold.co/760x420/1a4731/fff?text=Sekadau+Today'"/>
+      <div class="fo">
+        <span class="badge ${ft.is_breaking?"br":"bg2"}">${ft.is_breaking?"BREAKING":"UTAMA"}</span>
+        <h2>${escH(ft.title)}</h2>
+        <div class="fmm">
+          <span>📰 ${escH(ft.author||"Tim Redaksi")}</span>
+          <span>🕐 ${rt(ft.published_at)}</span>
+          <span>👁 ${(ft.view_count||0).toLocaleString("id")} dibaca</span>
         </div>
       </div>
-      <div class="fs">
-        ${sd.map(a=>{
-          const img=a.cover_image_url||"https://placehold.co/380x160/2d6e4e/fff?text="+encodeURIComponent(a.title.substring(0,15));
-          return`<div class="fsi">
-            <img class="fsm" src="${img}" alt="${escH(a.title)}" onerror="this.src='https://placehold.co/380x160/2d6e4e/fff?text=Berita'"/>
-            <div class="fso">
-              <span class="badge bg2">${escH(gcn(cats,a.category_id))}</span>
-              <h3>${escH(a.title)}</h3>
-            </div>
-          </div>`;
-        }).join("")}
+    </div>
+    <div class="fs">
+      ${sd.map(a=>{
+        const img=a.cover_image_url||placeholderImg(a.title,gcc(cats,a.category_id).replace("#",""));
+        return`<div class="fsi" onclick="goArtikel('${a.slug}')">
+          <img class="fsm" src="${escH(img)}" alt="${escH(a.title)}"
+               onerror="this.src='https://placehold.co/380x160/2d6e4e/fff?text=${encodeURIComponent(a.title.substring(0,15))}'"/>
+          <div class="fso">
+            <span class="badge bg2">${escH(gcn(cats,a.category_id))}</span>
+            <h3>${escH(a.title)}</h3>
+          </div>
+        </div>`;
+      }).join("")}
+    </div>
+  </div>`;
+}
+
+function renderArts(){
+  const filtered = activeCatId
+    ? allArts.filter(a=>a.category_id===activeCatId)
+    : allArts;
+
+  // Update title
+  if(activeCatId){
+    const cat=allCats.find(c=>c.id===activeCatId);
+    document.getElementById("listTitle").innerHTML=`<span>${cat?escH(cat.name):"Artikel"}</span>`;
+  } else {
+    document.getElementById("listTitle").innerHTML='<span>Berita Terbaru</span>';
+  }
+
+  if(!filtered.length){
+    document.getElementById("nl").innerHTML='<div class="empty"><div class="ei">📭</div><p>Belum ada artikel untuk kategori ini.</p></div>';
+    return;
+  }
+  document.getElementById("nl").innerHTML=filtered.map(a=>{
+    const img=a.cover_image_url||"https://placehold.co/200x136/2d6e4e/fff?text=📸";
+    return`<div class="ni" onclick="goArtikel('${a.slug}')">
+      <div class="niw">
+        <img class="nii" src="${escH(img)}" alt="${escH(a.title)}"
+             onerror="this.src='https://placehold.co/200x136/2d6e4e/fff?text=📸'"/>
+      </div>
+      <div>
+        <div class="nic" style="color:${gcc(allCats,a.category_id)}">${escH(gcn(allCats,a.category_id))}</div>
+        <div class="nit">${escH(a.title)}</div>
+        <div class="nim">${rt(a.published_at)}</div>
       </div>
     </div>`;
-  } else {
-    document.getElementById("ft").innerHTML='<div style="text-align:center;padding:40px;color:var(--mu);font-family:var(--fu)">Belum ada artikel. Tambah artikel di dashboard!</div>';
-  }
+  }).join("");
+}
 
-  // NEWS LIST
-  const list=arts.slice(0,8);
-  if(list.length){
-    document.getElementById("nl").innerHTML=list.map(a=>{
-      const img=a.cover_image_url||"https://placehold.co/200x136/2d6e4e/fff?text=📸";
-      return`<div class="ni">
-        <div class="niw"><img class="nii" src="${img}" alt="${escH(a.title)}" onerror="this.src='https://placehold.co/200x136/2d6e4e/fff?text=📸'"/></div>
-        <div>
-          <div class="nic">${escH(gcn(cats,a.category_id))}</div>
-          <div class="nit">${escH(a.title)}</div>
-          <div class="nim">${rt(a.published_at)}</div>
-        </div>
-      </div>`;
-    }).join("");
-  } else {
-    document.getElementById("nl").innerHTML='<div style="text-align:center;padding:24px;color:var(--mu);font-family:var(--fu)">Belum ada artikel tersedia.</div>';
-  }
-
-  // MOST READ
-  const mr=[...arts].sort((a,b)=>(b.view_count||0)-(a.view_count||0)).slice(0,5);
-  document.getElementById("mr").innerHTML=mr.map((a,i)=>
-    `<div class="mri">
+function renderMostRead(arts){
+  const top=[...arts].sort((a,b)=>(b.view_count||0)-(a.view_count||0)).slice(0,5);
+  if(!top.length){document.getElementById("mr").innerHTML='<div class="empty"><p>—</p></div>';return;}
+  document.getElementById("mr").innerHTML=top.map((a,i)=>
+    `<div class="mri" onclick="goArtikel('${a.slug}')">
       <div class="mrn">0${i+1}</div>
       <div>
         <div class="mrt">${escH(a.title)}</div>
@@ -435,11 +449,46 @@ async function loadPage(){
   ).join("");
 }
 
-function escH(s){
-  return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+async function loadPage(){
+  const [arts, cats] = await Promise.all([
+    sbGet("articles","?select=id,title,slug,excerpt,cover_image_url,category_id,author,is_featured,is_breaking,view_count,published_at&status=eq.published&order=published_at.desc&limit=50"),
+    sbGet("categories","?order=name.asc")
+  ]);
+  allArts=arts; allCats=cats;
+
+  // BREAKING TICKER
+  const bk=arts.filter(a=>a.is_breaking).slice(0,6);
+  if(bk.length){
+    const all=[...bk,...bk];
+    document.getElementById("bbs").innerHTML=all.map(a=>"<span>"+escH(a.title)+"</span>").join("");
+  }
+
+  // CATEGORY TABS — dinamis dari DB
+  document.getElementById("ctb").innerHTML=
+    '<a class="active" onclick="filterCat(\'\',this)">Semua</a>'+
+    cats.map(c=>`<a onclick="filterCat('${c.slug}',this)">${escH(c.name)}</a>`).join("");
+
+  // Update nav header dengan slug
+  document.querySelectorAll("#mainNav a:not(:first-child)").forEach(a=>{
+    const txt=a.textContent.trim().toLowerCase();
+    const cat=cats.find(c=>c.name.toLowerCase()===txt);
+    if(cat) a.setAttribute("onclick",`filterCat('${cat.slug}',this)`);
+  });
+
+  renderFeatured(arts, cats);
+  renderArts();
+  renderMostRead(arts);
 }
 
-// Jalankan saat DOM siap
+function doNewsletter(){
+  const v=document.getElementById("nlEmail").value.trim();
+  if(!v.includes("@")){document.getElementById("nlEmail").style.borderColor="var(--org)";return;}
+  document.getElementById("nlEmail").value="";
+  document.getElementById("nlEmail").placeholder="✅ Terima kasih! Cek email kamu.";
+  document.getElementById("nlEmail").style.borderColor="var(--gold)";
+  setTimeout(()=>{document.getElementById("nlEmail").placeholder="Email kamu...";document.getElementById("nlEmail").style.borderColor="";} ,3000);
+}
+
 loadPage();
 </script>
 </body>
